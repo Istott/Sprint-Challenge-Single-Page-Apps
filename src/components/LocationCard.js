@@ -24,6 +24,12 @@ const SearchBar = styled.div`
   justify-content: space-around;
 `;
 
+const LocationTitle = styled.div`
+  background-color: lightgray;
+  display: flex;
+  justify-content: space-around;
+`;
+
 const RickCard = styled.div`
   background-color: lightgray;
   padding: 2%;
@@ -78,6 +84,10 @@ export default function Location() {
 
           </form>
         </Search>
+        
+        <LocationTitle>
+          <h2>Locations</h2>
+        </LocationTitle>
        
         <div className="location">
           {locations.map(location => {
