@@ -32,7 +32,7 @@ const RickCard = styled.div`
 `;
 
 export default function Episode() {
-  // NOTE: The value given to setState() must be of the same type as your value is expected to be
+
   const [episodes, setEpisodes] = useState([]);
   const [query, setQuery] = useState("");
   console.log(episodes);
@@ -43,9 +43,7 @@ export default function Episode() {
       .then(response => {
         const data = response.data.results;
         console.log(response);
-        const result = data.filter(local =>
-          // spell is the name of the data I am trying to display from the given endpoint
-          // try taking the .toLowerCase out for each part and see what happens when you search. You can search but doesn't find the spells as accurately.
+         const result = data.filter(local =>
           local.name.toLowerCase().includes(query.toLowerCase())
         );
         setEpisodes(result);

@@ -1,9 +1,3 @@
-// import React from "react";
-
-// export default function CharacterCard() {
-//   return <span>todo: character</span>;
-// }
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
@@ -38,10 +32,10 @@ const MortyCard = styled.div`
 `;
 
 export default function Characters() {
-  // data is grabbing the response from the request and then we map through it
+
   const [data, setData] = useState([]);
 
-  // is looking at our input value and filtering what we input
+
   const [query, setQuery] = useState("");
   useEffect(() => {
     axios
@@ -53,11 +47,11 @@ export default function Characters() {
         const character = response.data.results.filter(char =>
           char.name.toLowerCase().includes(query.toLowerCase())
         );
-        // console.log("harry potter characters", response);
+
         setData(character);
       });
   }, [query]);
-  // this is the function watching for what we put in our input
+
   const handleInputChange = event => {
     setQuery(event.target.value);
   };
