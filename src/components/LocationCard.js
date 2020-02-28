@@ -1,5 +1,69 @@
-import React from "react";
+// import React from "react";
 
-export default function LocationCard({ name, type, dimension, residents }) {
-  return <span>todo: location</span>;
+// export default function LocationCard({ name, type, dimension, residents }) {
+//   return <span>todo: location</span>;
+// }
+
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+export default function Location() {
+  // NOTE: The value given to setState() must be of the same type as your value is expected to be
+  const [locations, setLocations] = useState([]);
+  const [query, setQuery] = useState("");
+  console.log(locations);
+  useEffect(() => {
+    axios
+      .get(`https://cors-anywhere.herokuapp.com/https://rickandmortyapi.com/api/location/`, {
+        // params: {
+        //   key: "$2a$10$1sdw09jOfZCj0ChmG9I2g.Q1uMT30My2M/aNAqc.aV3JTyNxb4f2m"
+        // }
+      })
+      .then(response => {
+        const data = response.data.results;
+        console.log(response);
+        const result = data.filter(local =>
+          // spell is the name of the data I am trying to display from the given endpoint
+          // try taking the .toLowerCase out for each part and see what happens when you search. You can search but doesn't find the spells as accurately.
+          local.name.toLowerCase().includes(query.toLowerCase())
+        );
+        setLocations(result);
+      });
+  }, [query]);
+  const handleInputChange = event => {
+    setQuery(event.target.value);
+  };
+
+  return (
+    <div className="locations">
+      <form className="search">
+        <input
+          type="text"
+          onChange={handleInputChange}
+          value={query}
+          name="name"
+          tabIndex="0"
+          className="prompt search-name"
+          placeholder="search by name"
+          autoComplete="off"
+        />
+      </form>
+      <div className="location">
+        {locations.map(location => {
+          return (
+            <div className="location-list " key={location._id}>
+              <h2>
+                <span aria-label="sparkles" role="img">
+                  ✨
+                </span>
+                {location.location}
+              </h2>
+              <h3>Location: {location.type}</h3>
+              <h3 className="capital">{location.effect}</h3>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
