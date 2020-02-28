@@ -1,11 +1,16 @@
 import React from "react";
-import Header from "./components/Header.js";
+import AppRouter from "./components/SearchForm";
 
-
-export default function App() {
+function App() {
   return (
     <main>
-      <Header />
+      <header />
+      <AppRouter />
     </main>
+      
+    
   );
 }
+
+export default App;
+

@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 
 const BackgroundCard = styled.div`
-  background-color: lightgray;
+  background-color: lightblue;
 `;
 
 const Search = styled.div`
@@ -18,43 +18,41 @@ const SearchBar = styled.div`
   justify-content: space-around;
 `;
 
-const CharacterTitle = styled.div`
+const EpisodeTitle = styled.div`
   background-color: lightgray;
   display: flex;
   justify-content: space-around;
 `;
 
-const MortyCard = styled.div`
-  background-color: lightblue;
+const RickCard = styled.div`
+  background-color: lightgray;
   padding: 2%;
   border: 1px black solid;
   margin: 2%;
 `;
 
-export default function Characters() {
+export default function Episode() {
 
-  const [data, setData] = useState([]);
-
-
+  const [episodes, setEpisodes] = useState([]);
   const [query, setQuery] = useState("");
+  console.log(episodes);
   useEffect(() => {
     axios
-      .get(`https://cors-anywhere.herokuapp.com/https://rickandmortyapi.com/api/character/`, {
-      
+      .get(`https://cors-anywhere.herokuapp.com/https://rickandmortyapi.com/api/episode/`, {
       })
       .then(response => {
+        const data = response.data.results;
         console.log(response);
-        const character = response.data.results.filter(char =>
-          char.name.toLowerCase().includes(query.toLowerCase())
+         const result = data.filter(local =>
+          local.name.toLowerCase().includes(query.toLowerCase())
         );
-
-        setData(character);
+        setEpisodes(result);
       });
   }, [query]);
-
   const handleInputChange = event => {
     setQuery(event.target.value);
   };
+
   return (
     <BackgroundCard>
       <div className="locations">
@@ -72,26 +70,26 @@ export default function Characters() {
                 autoComplete="off"
               />
             </SearchBar>
+
           </form>
         </Search>
 
-        <CharacterTitle>
-          <h2>Characters</h2>
-        </CharacterTitle>
-
-
+        <EpisodeTitle>
+          <h2>Episodes</h2>
+        </EpisodeTitle>
+       
         <div className="location">
-          {data.map(data => {
+          {episodes.map(location => {
             return (
-              <MortyCard>
-                <div className="character-list " key={data._id}>
-                  <h2>{data.name}</h2>
-                  <h3 className="capital">Status: {data.status}</h3>
-                  <h3 className="capital">Species: {data.species}</h3>
-                  <h3 className="capital">Type: {data.type}</h3>
+              <RickCard>
+                <div className="location-list " key={location._id}>
+                  <h2>{location.location}</h2>
+                  <h3>Name: {location.name}</h3>
+                  <h3 className="capital">Air Date: {location.air_date}</h3>
+                  <h3 className="capital">Episode: {location.episode}</h3>
                 </div>
-              </MortyCard>
-
+              </RickCard>
+              
             );
           })}
         </div>
