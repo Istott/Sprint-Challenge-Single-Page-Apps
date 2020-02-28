@@ -6,6 +6,30 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import styled from "styled-components";
+
+
+const BackgroundCard = styled.div`
+  background-color: lightblue;
+`;
+
+const Search = styled.div`
+  width: 100%;
+  background-color: darkgray;
+`;
+
+const SearchBar = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+`;
+
+const RickCard = styled.div`
+  background-color: lightgray;
+  padding: 2%;
+  border: 1px black solid;
+  margin: 2%;
+`;
 
 export default function Location() {
   // NOTE: The value given to setState() must be of the same type as your value is expected to be
@@ -35,35 +59,43 @@ export default function Location() {
   };
 
   return (
-    <div className="locations">
-      <form className="search">
-        <input
-          type="text"
-          onChange={handleInputChange}
-          value={query}
-          name="name"
-          tabIndex="0"
-          className="prompt search-name"
-          placeholder="search by name"
-          autoComplete="off"
-        />
-      </form>
-      <div className="location">
-        {locations.map(location => {
-          return (
-            <div className="location-list " key={location._id}>
-              <h2>
-                <span aria-label="sparkles" role="img">
-                  ✨
-                </span>
-                {location.location}
-              </h2>
-              <h3>Location: {location.type}</h3>
-              <h3 className="capital">{location.effect}</h3>
-            </div>
-          );
-        })}
+    <BackgroundCard>
+      <div className="locations">
+        <Search>
+          <form className="search">
+            <SearchBar>
+              <input
+                type="text"
+                onChange={handleInputChange}
+                value={query}
+                name="name"
+                tabIndex="0"
+                className="prompt search-name"
+                placeholder="search by name"
+                autoComplete="off"
+              />
+            </SearchBar>
+
+          </form>
+        </Search>
+       
+        <div className="location">
+          {locations.map(location => {
+            return (
+              <RickCard>
+                <div className="location-list " key={location._id}>
+                  <h2>{location.location}</h2>
+                  <h3>Name: {location.name}</h3>
+                  <h3 className="capital">Type: {location.type}</h3>
+                  <h3 className="capital">Dimension: {location.dimension}</h3>
+                </div>
+              </RickCard>
+              
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </BackgroundCard>
+
   );
 }

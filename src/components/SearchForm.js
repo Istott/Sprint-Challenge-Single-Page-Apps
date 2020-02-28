@@ -13,20 +13,38 @@ import React from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import Character from "./CharacterCard";
 import Locations from "./LocationCard";
+import styled from "styled-components";
+
+
+const TopCard = styled.div`
+  background-color: lightgray;
+`;
+
+const NavCard = styled.div`
+  background-color: lightgray;
+  display: flex;
+  justify-content: space-evenly;
+  text-decoration: none;
+`;
+
+
 function AppRouter() {
   return (
     <Router>
       <div>
-        <nav className="main-nav">
-          <ul>
-            <li>
-              <Link to="/">Character</Link>
-            </li>
-            <li>
-              <Link to="/Locations">Locations</Link>
-            </li>
-          </ul>
-        </nav>
+        <TopCard>
+          <nav className="main-nav">
+            <NavCard>
+              <h2>
+                <Link to="/">Character</Link>
+              </h2>
+              <h2>
+                <Link to="/Locations">Locations</Link>
+              </h2>
+            </NavCard>
+          </nav>
+        </TopCard>
+
         <Switch>
           <Route path="/Locations" component={Locations} />
           <Route path="/" component={Character} />

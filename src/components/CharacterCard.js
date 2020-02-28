@@ -6,6 +6,30 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import styled from "styled-components";
+
+
+const BackgroundCard = styled.div`
+  background-color: lightgray;
+`;
+
+const Search = styled.div`
+  width: 100%;
+  background-color: darkgray;
+`;
+
+const SearchBar = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+`;
+
+const MortyCard = styled.div`
+  background-color: lightblue;
+  padding: 2%;
+  border: 1px black solid;
+  margin: 2%;
+`;
 
 export default function Characters() {
   // data is grabbing the response from the request and then we map through it
@@ -32,31 +56,42 @@ export default function Characters() {
     setQuery(event.target.value);
   };
   return (
-    <div className="locations">
-      <form className="search">
-        <input
-          type="text"
-          onChange={handleInputChange}
-          value={query}
-          name="name"
-          tabIndex="0"
-          className="prompt search-name"
-          placeholder="search by name"
-          autoComplete="off"
-        />
-      </form>
-      <div className="location">
-        {data.map(data => {
-          return (
-            <div className="character-list " key={data._id}>
-              <h2>{data.name}</h2>
-              <h3 className="capital">Status: {data.status}</h3>
-              <h3 className="capital">Species: {data.species}</h3>
-              <h3 className="capital">Type: {data.type}</h3>
-            </div>
-          );
-        })}
+    <BackgroundCard>
+      <div className="locations">
+        <Search>
+          <form className="search">
+            <SearchBar>
+              <input
+                type="text"
+                onChange={handleInputChange}
+                value={query}
+                name="name"
+                tabIndex="0"
+                className="prompt search-name"
+                placeholder="search by name"
+                autoComplete="off"
+              />
+            </SearchBar>
+          </form>
+        </Search>
+
+        <div className="location">
+          {data.map(data => {
+            return (
+              <MortyCard>
+                <div className="character-list " key={data._id}>
+                  <h2>{data.name}</h2>
+                  <h3 className="capital">Status: {data.status}</h3>
+                  <h3 className="capital">Species: {data.species}</h3>
+                  <h3 className="capital">Type: {data.type}</h3>
+                </div>
+              </MortyCard>
+
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </BackgroundCard>
+
   );
 }
